@@ -25,9 +25,10 @@
         font-size: 18px;
         font-weight: 300;
         margin-bottom: 10px;
-        span {
-            font-weight: 700;
-        }
+    }
+    &__category_Img img{
+        width: 40px;
+        height: 40px;
     }
     &__btn {
         width: 150px;
@@ -39,4 +40,20 @@
         font-size: 16px;
         cursor: pointer;
     }
+    &__btn__wrapper{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.pizza {
+    background-image: url('http://www-static.dreambox.com/wp-content/uploads/2015/02/Prize-Icon-Pizza.png');
+    width: 70px;
+    height: 70px;
+}
+.salads {
+    background-image: url('https://images.vexels.com/media/users/3/141142/isolated/preview/d5ce613797b1fd08bdf3e038bfa1d0b2-colorful-salad-cartoon-by-vexels.png')
+}
+.meat{
+    background-image: url('https://cdn2.iconfinder.com/data/icons/food-drinks-v3/512/Steak-512.png');
 }
