@@ -2,8 +2,12 @@ import React from 'react';
 import './cart-table.scss';
 import {connect} from 'react-redux';
 import {deleteFromCart} from '../../actions';
+import WithRestoService from '../hoc';
 
-const CartTable = ({items, deleteFromCart}) => {
+const CartTable = ({items, deleteFromCart, RestoService, totalPrice}) => {
+    if( items.length === 0){
+        return (<div className="cart__title"> Ваша корзина пуста :( </div>)
+    }
     return (
         <>
             <div className="cart__title">Ваш заказ:</div>
@@ -17,18 +21,39 @@ const CartTable = ({items, deleteFromCart}) => {
                         <div className="cart__item-price">{quantity} x {price}$ = {quantity*price}$</div>
                         <div onClick={()=> deleteFromCart(id)}
                         className="cart__close">&times;</div>
-                    </div>
+                         </div>
                     )
                 })}
-
+            <button 
+            onClick={()=> {
+                RestoService.setOrder(createOrder(items), totalPrice)
+                console.log('sended');
+                items.map(item => {deleteFromCart(item.id)});
+            }} 
+            className="menu__btn">Order</button>
             </div>
         </>
     );
 };
 
-const mapStateToProps = ({items}) => {
+const createOrder = (items) =>{
+    const NewOrder = items.map(item =>{
+        return{
+            id: item.id,
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+            totalItemPrice: item.quantity * item.price
+        }
+    })
+    return NewOrder;
+}
+
+
+const mapStateToProps = ({items, totalPrice}) => {
     return{
-        items
+        items,
+        totalPrice
     }
 };
 
@@ -36,4 +61,4 @@ const mapDispatchToProps = {
     deleteFromCart
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartTable);
+export default WithRestoService()(connect(mapStateToProps, mapDispatchToProps)(CartTable));
