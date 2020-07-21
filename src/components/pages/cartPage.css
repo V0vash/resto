@@ -1,0 +1,10 @@
+.order{
+    display: block;
+    margin: 20px auto 0 auto;
+}
+.cart__empty{
+    font-size: 36px;
+    color: #fff;
+    text-align: center;
+    font-weight: 300;
+}
