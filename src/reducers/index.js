@@ -5,6 +5,7 @@ const initialState = {
     error: false,
     items:[],
     totalPrice: 0,
+    sended: false,
 }
 
 
@@ -68,7 +69,6 @@ const reducer = (state = initialState, action) => {
                     newItem
                 ],
                 totalPrice: state.totalPrice + newItem.price,
-                emptyCart: false
             };
         case 'ITEM_REMOVE_FROM_CART':
             const idx = action.payload;
@@ -80,6 +80,13 @@ const reducer = (state = initialState, action) => {
                     ...state.items.slice(itemIndex+1)
                 ],
                 totalPrice: state.totalPrice - state.items[itemIndex].price * state.items[itemIndex].quantity
+            }
+        case 'CLEAR_CART':
+            return{
+                ...state,
+                items: [],
+                totalPrice: 0,
+                sended: true
             }
         default:
             return state;
